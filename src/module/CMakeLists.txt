@@ -1,0 +1,19 @@
+set(HEADERS
+)
+
+set(SOURCES
+	CPPIoCExtension.cpp
+)
+
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fPIC")
+SET(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -fPIC")
+
+
+set(LIBS
+	${SCALIB}
+	${SDOLIB}
+)
+
+add_library(tuscany_sca_ioc SHARED ${HEADERS} ${SOURCES})
+target_link_libraries(tuscany_sca_ioc ${LIBS})
