@@ -1,8 +1,9 @@
-#include <iostream>
-using namespace std;
+
 
 #include <stdlib.h>
-#include "tuscany/sca/core/SCARuntime.h"
+#include <tuscany/sca/core/SCARuntime.h>
+#include "IoCImplementationExtension.h"
+#include "IoCInterfaceExtension.h"
 
 using namespace tuscany::sca;
 
@@ -14,7 +15,7 @@ extern "C"
 		void tuscany_sca_ioc_initialize()
 	{
 		SCARuntime* runtime = SCARuntime::getCurrentRuntime();
-		std::cout << "Hello runtime " << ((void*)runtime)  << std::endl;
-
+		runtime->registerImplementationExtension(new IoCImplementationExtension());
+		runtime->registerInterfaceExtension(new IoCInterfaceExtension());
 	}
 }
