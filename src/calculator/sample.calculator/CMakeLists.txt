@@ -26,7 +26,6 @@ SET(COMPONENT_FILES
 
 set(LIBS
 	${SCALIB}
-	${SCACPPLIB}
 	${SelfPortraitLib}
 )
 

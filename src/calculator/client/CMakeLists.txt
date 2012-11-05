@@ -12,7 +12,6 @@ SET(SCRIPTS
 
 SET(LIBS
 	${SCALIB}
-	${SCACPPLIB}
 	tuscany_sca_ioc
 )
 
