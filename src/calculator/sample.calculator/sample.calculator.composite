@@ -25,6 +25,7 @@
 	<component name="CalculatorComponent">
 		<implementation.ioc library="Calculator" header="CalculatorImpl.h" class="CalculatorImpl"/>
 	    <reference name="divideService">DivideComponent/DivideService</reference>
+		<property name="pi">5</property>
 	</component>
         
 	<component name="DivideComponent">

@@ -23,6 +23,7 @@
 #define sample_calculatorimpl_h
 
 #include "Calculator.h"
+#include "Divide.h"
 
 class CalculatorImpl : public Calculator
 {
@@ -35,6 +36,15 @@ public:
 	virtual float sub(float arg1, float arg2);
 	virtual float mul(float arg1, float arg2);
 	virtual float div(float arg1, float arg2);
+	virtual float circleArea(float radius);
+
+	void setPi(float p) { pi = p; }
+
+	void setDivideService(Divide* d) { divideService = d; }
+
+private:
+	Divide* divideService;
+	float pi = 3.14;
 };
 
 #endif // sample_calculatorimpl_h

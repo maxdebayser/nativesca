@@ -1,6 +1,5 @@
 #include "VariantToParameter.h"
 
-
 using namespace tuscany::sca;
 
 VariantValue convertToVariant(const Operation::Parameter& p) {
@@ -160,4 +159,66 @@ void addParameter(size_t index, Operation& op, const VariantValue& parm) {
 		throw std::logic_error("parameter variant is empty");
 	}
 
+}
+
+using namespace commonj::sdo;
+
+namespace {
+
+	struct null_type{};
+
+	template<class VType>
+	static VariantValue extract(const commonj::sdo::Property& property, commonj::sdo::DataObjectPtr& dataObject, VType (DataObject::*getter)(const Property&)) {
+		return (dataObject->*getter)(property);
+	}
+}
+
+
+VariantValue convertToVariant(const std::string& propName, commonj::sdo::DataObjectPtr& dataObject)
+{
+	if (!dataObject->hasProperty(propName.c_str())) {
+		return VariantValue();
+	}
+	return convertToVariant(dataObject->getProperty(propName.c_str()), dataObject);
+}
+
+
+VariantValue convertToVariant(const commonj::sdo::Property& property, commonj::sdo::DataObjectPtr& dataObject)
+{
+	switch(property.getTypeEnum()) {
+		case Type::BigDecimalType:
+			return extract(property, dataObject, &DataObject::getDouble); // <- is this correct?
+		case Type::BigIntegerType:
+			return extract(property, dataObject, &DataObject::getInteger); // <- is this correct?
+		case Type::BooleanType:
+			return extract(property, dataObject, &DataObject::getBoolean);
+		case Type::ByteType:
+			return extract(property, dataObject, &DataObject::getByte);
+		case Type::BytesType:
+			throw std::logic_error("conversion of SDO property to byte is not implemented");
+		case Type::CharacterType:
+			return extract(property, dataObject, &DataObject::getCharacter);
+		case Type::DateType:
+			return extract(property, dataObject, &DataObject::getDate);
+		case Type::DoubleType:
+			return extract(property, dataObject, &DataObject::getDouble);
+		case Type::FloatType:
+			return extract(property, dataObject, &DataObject::getFloat);
+		case Type::IntegerType:
+			return extract(property, dataObject, &DataObject::getInteger);
+		case Type::LongType:
+			return extract(property, dataObject, &DataObject::getLong);
+		case Type::ShortType:
+			return extract(property, dataObject, &DataObject::getShort);
+		case Type::StringType:
+			return extract(property, dataObject, &DataObject::getCString);
+		case Type::DataObjectType:
+			return extract(property, dataObject, &DataObject::getDataObject);
+		case Type::ChangeSummaryType:
+			return extract(property, dataObject, &DataObject::getChangeSummary);
+		case Type::TextType:
+			return extract(property, dataObject, &DataObject::getCString); // <- is this correct?
+		default:
+			return VariantValue();
+	}
 }

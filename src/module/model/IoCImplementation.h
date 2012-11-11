@@ -13,8 +13,7 @@ public:
 		STATELESS
 	};
 
-	IoCImplementation(tuscany::sca::model::Composite* composite, const std::string& componentName,
-					  const std::string& library, const std::string& className, Scope scope);
+	IoCImplementation(tuscany::sca::model::Composite* composite, commonj::sdo::DataObjectPtr implDataObject);
 
 	virtual ~IoCImplementation();
 
@@ -34,6 +33,7 @@ private:
 
 	const Scope m_scope;
 
+	commonj::sdo::DataObjectPtr m_implDataObject;
 };
 
 #endif /* IOC_IMPLEMENTATION_H */

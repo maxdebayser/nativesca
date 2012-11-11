@@ -26,6 +26,7 @@
 #include "CompositeContext.h"
 #include "Calculator.h"
 #include <exception>
+#include <tuscany/sca/core/Exceptions.h>
 
 using namespace std;
 using namespace puc::sca;
@@ -108,15 +109,28 @@ int main(int argc, char* argv[])
                 cout << "calculator_client: div(" << arg1 << "," << arg2 << ") = " << result << endl;
             }
 			else
+			if (strcmp(operation, "div") == 0)
+			{
+				result = calcService->div(arg1, arg2);
+				cout << "calculator_client: div(" << arg1 << "," << arg2 << ") = " << result << endl;
+			}
+			else
 		    {
 		        cout << "calculator_client: Unrecognized operation: " << operation << endl;
 			}
 		}
+		float area = calcService->circleArea(1);
+		cout << "calculator_client: area of circle with radius 1: " << area << endl;
 	}
 	catch (const std::exception& ex)
 	{
 		cout << "calculator_client: exception caught: " << ex.what() << endl;
 	}
+	catch (const tuscany::sca::TuscanyRuntimeException& ex)
+	{
+		cout << "calculator_client: tuscany exception caught: " << ex.getMessageText() << endl;
+	}
+
 	return 0;
 }
 

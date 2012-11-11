@@ -9,7 +9,9 @@
 #include <SelfPortrait/reflection.h>
 
 #include "model/IoCImplementation.h"
-
+#include <unordered_map>
+#include <string>
+#include <list>
 
 class IoCServiceWrapper: public tuscany::sca::ServiceWrapper {
 public:
@@ -20,6 +22,11 @@ public:
 	virtual void invoke(tuscany::sca::Operation& operation) override;
 
 private:
+
+	void setupClassInfo();
+
+	void configureComponent(VariantValue& object, std::list<VariantValue>& keepAlive);
+
 	tuscany::sca::model::Component* m_component;
 
 	tuscany::sca::model::Interface* m_interface;
@@ -32,6 +39,13 @@ private:
 
 	// TODO: unload?
 	tuscany::sca::util::Library m_wrapperLibrary;
+
+	typedef std::unordered_map<std::string, std::list<Method> > MethodMap;
+	typedef std::unordered_map<std::string, Attribute> AttributeMap;
+
+	MethodMap m_setters;
+	AttributeMap m_attrs;
+	std::list<VariantValue> m_keepAlive;
 };
 
 

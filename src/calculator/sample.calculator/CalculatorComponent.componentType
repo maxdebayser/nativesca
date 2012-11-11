@@ -18,7 +18,8 @@
    under the License.
 -->
 
-<componentType xmlns="http://www.osoa.org/xmlns/sca/1.0">
+<componentType xmlns="http://www.osoa.org/xmlns/sca/1.0"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
 	<service name="CalculatorService">
 		<interface.ioc header="Calculator.h" class="Calculator"/>
@@ -27,5 +28,7 @@
     <reference name="divideService">
 		<interface.ioc header="Divide.h" class="Divide"/>
 	</reference>
+
+	<property name="pi" type="xs:integer">3</property>
 
 </componentType>

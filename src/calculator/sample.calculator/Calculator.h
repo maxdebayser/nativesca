@@ -30,6 +30,7 @@ public:
 	virtual float sub(float arg1, float arg2) = 0;
 	virtual float mul(float arg1, float arg2) = 0;
 	virtual float div(float arg1, float arg2) = 0;
+	virtual float circleArea(float radius) = 0;
 };
 
 #endif // sample_calculator_h
