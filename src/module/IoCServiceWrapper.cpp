@@ -57,12 +57,18 @@ IoCServiceWrapper::IoCServiceWrapper(tuscany::sca::model::Service* service)
 	}
 
 	string libraryName = m_implementation->getLibrary();
+	string metadata = m_implementation->getMDLibrary();
+
 
 	// ------------
 	// Load the dll
 	// ------------
 	string fullLibraryName = m_component->getComposite()->getRoot() + "/" + libraryName;
 	m_wrapperLibrary = Library(fullLibraryName);
+
+	if (!metadata.empty()) {
+		m_MDLibrary = Library(m_component->getComposite()->getRoot() + "/" + metadata);
+	}
 
 	// Find the class and set up setter info
 	setupClassInfo();

@@ -20,6 +20,7 @@ public:
 	virtual void initializeComponent(tuscany::sca::model::Component* component);
 
 	const std::string& getLibrary() const { return m_library; }
+	const std::string& getMDLibrary() const { return m_MDLibrary; }
 
 	const std::string& getClass() const { return m_className; }
 
@@ -28,6 +29,7 @@ public:
 private:
 
 	const std::string m_library;
+	const std::string m_MDLibrary;
 
 	const std::string m_className;
 

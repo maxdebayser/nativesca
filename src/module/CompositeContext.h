@@ -34,7 +34,8 @@ namespace puc {
 				Proxy proxy;
 				Class clazz;
 				tuscany::sca::util::Library lib;
-				ProxyData(Proxy&& p, Class c, tuscany::sca::util::Library& l) : proxy(std::move(p)), clazz(c), lib(l) {}
+				tuscany::sca::util::Library MDLib;
+				ProxyData(Proxy&& p, Class c, tuscany::sca::util::Library& l, tuscany::sca::util::Library& m) : proxy(std::move(p)), clazz(c), lib(l), MDLib(m) {}
 			};
 
 			CompositeContext(tuscany::sca::model::Component* component);

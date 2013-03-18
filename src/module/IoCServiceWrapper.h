@@ -39,6 +39,7 @@ private:
 
 	// TODO: unload?
 	tuscany::sca::util::Library m_wrapperLibrary;
+	tuscany::sca::util::Library m_MDLibrary;
 
 	typedef std::unordered_map<std::string, std::list<Method> > MethodMap;
 	typedef std::unordered_map<std::string, Attribute> AttributeMap;

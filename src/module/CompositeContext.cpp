@@ -79,6 +79,13 @@ namespace puc {
 			string fullLibraryName = serviceComponent->getComposite()->getRoot() + "/" + library;
 			Library lib(fullLibraryName);
 
+			Library metalib;
+
+			string metadata = impl->getMDLibrary();
+			if (!metadata.empty()) {
+				metalib = Library(serviceComponent->getComposite()->getRoot() + "/" + metadata);
+			}
+
 			ServiceType* stype = service->getType();
 			auto iface = dynamic_cast<IoCInterface*>(stype->getInterface());
 			if (iface == nullptr) {
@@ -96,7 +103,7 @@ namespace puc {
 			VariantValue ref = p.reference(clazz);
 
 			// yes, we leak proxies for now
-			m_proxies.emplace_back(std::move(p), clazz, lib);
+			m_proxies.emplace_back(std::move(p), clazz, lib, metalib);
 			return std::move(ref);
 		}
 

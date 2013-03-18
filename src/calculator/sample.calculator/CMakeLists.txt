@@ -13,7 +13,6 @@ SET(METADATA
 )
 
 SET(SOURCES
-	${METADATA}
 	CalculatorImpl.cpp
 	DivideImpl.cpp
 )
@@ -24,16 +23,14 @@ SET(COMPONENT_FILES
 	sample.calculator.composite
 )
 
-set(LIBS
-	${SCALIB}
-	${SelfPortraitLib}
-)
 
 set_source_files_properties(${METADATA} PROPERTIES GENERATED TRUE)
 
 
 add_library(Calculator SHARED ${HEADERS} ${SOURCES})
-target_link_libraries(Calculator ${LIBS})
+
+add_library(Calculator-md SHARED ${METADATA})
+target_link_libraries(Calculator-md ${SelfPortraitLib} Calculator)
 
 # horrible...
 foreach(file ${COMPONENT_FILES})
@@ -49,5 +46,5 @@ foreach(iface ${HEADERS})
 		COMMAND ${SELFPC} "${CMAKE_CURRENT_SOURCE_DIR}/${iface}" "--interface-diagnostics" "-o" "${iface}.cpp"
 		DEPENDS ${HEADERS}
 	)
-	add_dependencies(Calculator "${iface}_dependency")
+	add_dependencies(Calculator-md "${iface}_dependency")
 endforeach()

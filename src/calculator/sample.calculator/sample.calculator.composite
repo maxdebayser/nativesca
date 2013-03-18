@@ -23,13 +23,13 @@
 
 <!-- Os arquivos *.componentType devem ter o mesmo nome do atributo name do component -->
 	<component name="CalculatorComponent">
-		<implementation.ioc library="Calculator" header="CalculatorImpl.h" class="CalculatorImpl"/>
+		<implementation.ioc library="Calculator" metadata="Calculator-md" header="CalculatorImpl.h" class="CalculatorImpl"/>
 	    <reference name="divideService">DivideComponent/DivideService</reference>
 		<property name="pi">5</property>
 	</component>
         
 	<component name="DivideComponent">
-		<implementation.ioc library="Calculator" header="DivideImpl.h" class="DivideImpl"/>
+		<implementation.ioc library="Calculator" metadata="Calculator-md" header="DivideImpl.h" class="DivideImpl"/>
 	</component>
 
 </composite>

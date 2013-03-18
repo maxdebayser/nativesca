@@ -10,10 +10,14 @@ using namespace std;
 IoCImplementation::IoCImplementation(Composite* composite, commonj::sdo::DataObjectPtr implDataObject)
 	: ComponentType(composite, implDataObject->getContainer()->getCString("name"))
 	, m_library(implDataObject->getCString("library"))
+	, m_MDLibrary(implDataObject->getCString("metadata"))
 	, m_className(implDataObject->getCString("class"))
 	, m_scope((std::string(implDataObject->getCString("scope")) == "composite" ? IoCImplementation::COMPOSITE : IoCImplementation::STATELESS))
 	, m_implDataObject(implDataObject)
 {
+	// TODO: Tenho que mexer aqui e no IoCServiceWrapper para impedir que um componente
+	// com scope composite que implementa dois servicos crie duas instancias em vez de uma
+	// É fácil, basta colocar o Variant de instancia unica aqui
 }
 
 IoCImplementation::~IoCImplementation()

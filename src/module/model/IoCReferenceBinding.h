@@ -23,7 +23,7 @@ public:
 
 private:
 
-	// isso vou precisar no meu component context caseiro
+	// TODO: preciso colocar um smart pointer aqui
 	tuscany::sca::ServiceProxy* m_serviceProxy;
 };
 

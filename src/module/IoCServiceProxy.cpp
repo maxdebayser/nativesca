@@ -55,11 +55,28 @@ void IoCServiceProxy::addProxy(tuscany::sca::model::Reference* sourceReference, 
 		throw std::logic_error(fmt_str("Reference interface is not of the expected type"));
 	}
 
+	// We could add support for other interface types here.
+	// Instead of implementing only the native interface, the proxy could
+	// always implement a
+	// class Service {
+	//     virtual VariantValue invoke(string opName, vector<VariantValue> args) = 0;
+	// };
+	// The implementation of this interface could work for many different interface types.
+	// The native interface would be a special feature.
+	// In the case were the native interface is supported, the proxy would do essentially
+	// the same thing for both interfaces.
+
+
 	// Libraries, at least opened with dlopen, are ref-counted. So for every
 	// open we try to load the library
 	string library = impl->getLibrary();
 	string fullLibraryName = sourceComponent->getComposite()->getRoot() + "/" + library;
 	libs.emplace_back(fullLibraryName);
+
+	string metadata = impl->getMDLibrary();
+	if (!metadata.empty()) {
+		libs.emplace_back(sourceComponent->getComposite()->getRoot() + "/" + metadata);
+	}
 
 	string ifaceClass = rIFace->getClass();
 
